@@ -14,7 +14,6 @@ const companynameRouter = require('./src/routes/companyname');
 const { dirname } = require('path');
 
 const app = express();
-
 //configure PORT 
 const PORT = process.env.PORT || 9000;
 
@@ -28,6 +27,12 @@ app.set(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://sponsormatchbeta.firebaseapp.com/ ");
+    //res.header("Access-Control-Allow-Origin", "*");
+    next();
+})
 
 app.use('/', indexRouter);
 app.use('/cvrnr', cvrnrRouter);
